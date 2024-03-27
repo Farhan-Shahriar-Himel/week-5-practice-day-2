@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div class="navbar justify-around bg-neutral text-neutral-content">
+        <div class="navbar-start">
+          <div class="dropdown">
+            <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+            </div>
+            <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+              <li><a>home</a></li>
+              <li>
+                <a href="">create_album</a>
+              </li>
+              <li><a>register_musician</a></li>
+            </ul>
+          </div>
+          <a class="btn btn-ghost text-xl">MusicMania</a>
+        </div>
+        {% if request.user.is_authenticated %}
+        <div class="navbar-center hidden lg:flex">
+          <ul class="menu menu-horizontal px-1">
+            <li><a href="{% url "profile" %}">Profile</a></li>
+            <li><a href="{% url "add_musician" %}">Create Musician</a></li>
+            <li><a href="{% url "create_album" %}">Create Album</a></li>
+            <li><a href="{% url "logout" %}">Logout</a></li>
+          </ul>
+        </div>
+        {% else %}
+        <div class="navbar-center hidden lg:flex">
+          <ul class="menu menu-horizontal px-1">
+            <li><a href="{% url "homepage" %}">home</a></li>
+            <li><a href="{% url "logIn" %}">SignIn</a></li>
+            <li><a href="{% url "register" %}">Register</a></li>
+          </ul>
+        </div>
+        {% endif %}
+        </div>
+
+        
+  {% for msg in messages %}
+    {{msg}}
+  {% endfor %}
+</div>
+{% block content %}
+<main class="container mx-auto">
+  <div class="overflow-x-auto my-4">
+      <table class="table">
+        <!-- head -->
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Musician_Name</th>
+            <th>Email</th>
+            <th>Album_rating</th>
+            <th>Instrument_type</th>
+            <th>Album_name</th>
+            <th>Release_date</th>
+          </tr>
+        </thead>
+      {% for el in data %}
+        <tbody>
+          <!-- row 1 -->
+          <tr>
+            <th> {{el.id}} </th>
+            <td> <a href="">{{el.musician.first_name}}</a> </td>
+            <td> {{el.musician.email}} </td>
+            <td> {{el.rating}} </td>
+            <td> {{el.musician.instrument_type}} </td>
+            <td> {{el.album_name}} </td>
+            <td> {{el.release_date}} </td>
+          </tr>
+        </tbody>
+      {% endfor %}
+      </table>
+    </div>
+</main>
+{% endblock content %}
+</body>
+</html>

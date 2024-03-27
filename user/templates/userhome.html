@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<main class="container mx-auto">
+    <div class="overflow-x-auto my-4">
+        <table class="table">
+          <!-- head -->
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Musician_Name</th>
+              <th>Email</th>
+              <th>Album_rating</th>
+              <th>Instrument_type</th>
+              <th>Album_name</th>
+              <th>Release_date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+        {% for el in data %}
+          <tbody>
+            <!-- row 1 -->
+            <tr>
+              <th> {{el.id}} </th>
+              <td> <a href="{% url "edit_musician" el.musician.id %}">{{el.musician.first_name}}</a> </td>
+              <td> {{el.musician.email}} </td>
+              <td> {{el.rating}} </td>
+              <td> {{el.musician.instrument_type}} </td>
+              <td> {{el.album_name}} </td>
+              <td> {{el.release_date}} </td>
+              <td>
+                <a href="{% url "edit_album" el.id %}"><button class="btn btn-primary">Edit</button></a>
+                <a href="{% url "delete_album" el.id %}"><button class="btn bg-red-500">Delete</button></a>
+              </td>
+            </tr>
+          </tbody>
+        {% endfor %}
+        </table>
+      </div>
+</main>
+{% endblock content %}
